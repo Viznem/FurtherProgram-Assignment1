@@ -64,10 +64,10 @@ public class StudentEnrolment {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        StudentEnrolment enrolment = (StudentEnrolment) o;
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        StudentEnrolment enrolment = (StudentEnrolment) obj;
         return id == enrolment.id && Objects.equals(student, enrolment.student) && Objects.equals(course, enrolment.course) && Objects.equals(semester, enrolment.semester);
     }
 

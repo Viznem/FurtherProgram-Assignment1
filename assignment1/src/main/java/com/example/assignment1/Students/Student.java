@@ -46,10 +46,10 @@ public class Student {
                 '}';
     }
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Student student = (Student) o;
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Student student = (Student) obj;
         return id == student.id && Objects.equals(name, student.name) && Objects.equals(birthdate, student.birthdate);
     }
 
