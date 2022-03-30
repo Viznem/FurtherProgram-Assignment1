@@ -5,13 +5,17 @@ import java.util.List;
 public interface StudentEnrolmentManager {
     void add(StudentEnrolment studentEnrolment);
 
-    void update(int enrolmentId, StudentEnrolment studentEnrolment);
+    void update(String enrolmentId, StudentEnrolment studentEnrolment);
 
-    void delete(int enrolmentId);
+    void delete(String enrolmentId);
 
     void deleteByCourseId(int courseId);
 
-    StudentEnrolment getOne(int enrolmentId);
+    StudentEnrolment getOne(String enrolmentId);
 
     List<StudentEnrolment> getAll();
+
+    StudentEnrolment getEnrollmentDataForOneStudent(int studentId, int oldCourseId, String semester);
+
+    void getAllEnrolledCoursesForOneStudent(int studentId, String semester);
 }

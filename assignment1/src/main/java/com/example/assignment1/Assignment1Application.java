@@ -1,5 +1,7 @@
 package com.example.assignment1;
 
+import com.example.assignment1.ControlPanel.CRUDEnrollment;
+import com.example.assignment1.ControlPanel.ControlPanel;
 import com.example.assignment1.Courses.Course;
 import com.example.assignment1.Courses.ListOfCourse;
 import com.example.assignment1.Students.ListOfStudent;
@@ -23,6 +25,17 @@ public class Assignment1Application {
 		courses.print(courses.getAll());
 
 		//SpringApplication.run(Assignment1Application.class, args);
+		mainMenu();
 	}
 
+	public static void mainMenu() {
+
+		ControlPanel MainMenu = new ControlPanel("Main Menu");
+		MainMenu.addOption("Enroll Menu", CRUDEnrollment::EnrollMenu);
+		//MainMenu.addOption("Print Menu", PrintControl::PrintMenu);
+		MainMenu.addOption("List of student", CRUDEnrollment::DisplayAllStudents);
+		MainMenu.addOption("List of course", CRUDEnrollment::DisplayAllCourses);
+		MainMenu.addOption("Exit",()-> System.out.println("Exiting"));
+		MainMenu.start();
+	}
 }

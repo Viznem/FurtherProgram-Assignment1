@@ -7,18 +7,18 @@ import java.util.List;
 
 public class ListOfStudent {
 
-    private static final List<Student> STUDENTS = Arrays.asList(
+    private static final List<Student> StudentList = Arrays.asList(
             new Student(1, "Thinh Nguyen", "20/1/2000"),
             new Student(2, "Phat Nguyen", "20/1/2003"),
             new Student(3, "Hung Nguyen", "10/1/1995")
     );
 
     public List<Student> getAll() {
-        return STUDENTS;
+        return StudentList;
     }
 
     public Student getOne(int studentId) {
-        return STUDENTS.stream()
+        return StudentList.stream()
                 .filter(student -> student.getId() == studentId)
                 .parallel()
                 .findAny()
@@ -26,16 +26,16 @@ public class ListOfStudent {
     }
 
     public void print(List<Student> students) {
-        System.out.println("    <<<>>> List of students <<<>>>   ");
-        String[] headers = new String[] {"Student Id", "Student Name", "Birthday"};
-        Object[][] data = new Object[students.size()][headers.length];
+        System.out.println("-------List of students-------");
+        String[] titles = new String[] {"Student Id", "Student Name", "Birthday"};
+        Object[][] body = new Object[students.size()][titles.length];
         for (int i = 0; i < students.size(); i++) {
             Student student = students.get(i);
-            data[i][0] = student.getId();
-            data[i][1] = student.getName();
-            data[i][2] = student.getBirthdate();
+            body[i][0] = student.getId();
+            body[i][1] = student.getName();
+            body[i][2] = student.getBirthdate();
         }
-        TextTable tt = new TextTable(headers, data);
+        TextTable tt = new TextTable(titles, body);
         tt.printTable();
     }
 }

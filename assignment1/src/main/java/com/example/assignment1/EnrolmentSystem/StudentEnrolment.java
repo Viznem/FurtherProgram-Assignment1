@@ -5,15 +5,16 @@ import com.example.assignment1.Courses.Course;
 import com.example.assignment1.Students.Student;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class StudentEnrolment {
 
-    private int id;
+    private String id;
     private Student student;
     private Course course;
     private String semester;
 
-    public StudentEnrolment(int id, Student student, Course course, String semester) {
+    public StudentEnrolment(String id, Student student, Course course, String semester) {
         this.id = id;
         this.student = student;
         this.course = course;
@@ -21,7 +22,7 @@ public class StudentEnrolment {
     }
 
     public StudentEnrolment(Student student, Course course, String semester) {
-        this.id++;
+        this.id = UUID.randomUUID().toString();
         this.student = student;
         this.course = course;
         this.semester = semester;
@@ -31,16 +32,19 @@ public class StudentEnrolment {
         this(studentEnrolment.getId(), studentEnrolment.getStudent(), studentEnrolment.getCourse(), studentEnrolment.getSemester());
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
     public Student getStudent() {
         return student;
+    }
+    public String getStudentName() {
+        return student.getName();
     }
 
     public void setStudent(Student student) {
@@ -49,6 +53,9 @@ public class StudentEnrolment {
 
     public Course getCourse() {
         return course;
+    }
+    public String getCourseName() {
+        return course.getName();
     }
 
     public void setCourse(Course course) {
@@ -68,7 +75,7 @@ public class StudentEnrolment {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         StudentEnrolment enrolment = (StudentEnrolment) obj;
-        return id == enrolment.id && Objects.equals(student, enrolment.student) && Objects.equals(course, enrolment.course) && Objects.equals(semester, enrolment.semester);
+        return Objects.equals(id, enrolment.id) && Objects.equals(student, enrolment.student) && Objects.equals(course, enrolment.course) && Objects.equals(semester, enrolment.semester);
     }
 
     @Override

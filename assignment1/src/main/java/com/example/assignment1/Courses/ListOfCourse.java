@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ListOfCourse {
-    private static final List<Course> COURSES = Arrays.asList(
+    private static final List<Course> CourseList = Arrays.asList(
             new Course(1, "AI", "3"),
             new Course(2, "Data", "4"),
             new Course(3, "Web", "5")
@@ -14,11 +14,11 @@ public class ListOfCourse {
     );
 
     public List<Course> getAll() {
-        return COURSES;
+        return CourseList;
     }
 
     public Course getOne(int courseId) {
-        return COURSES.stream()
+        return CourseList.stream()
                 .filter(course -> course.getId() == courseId)
                 .parallel()
                 .findAny()
@@ -26,16 +26,16 @@ public class ListOfCourse {
     }
 
     public void print(List<Course> courses) {
-        System.out.println("     <<<>>>  List of courses <<<>>>    ");
-        String[] headers = new String[] {"Course Id", "Course Name", "Credit Number"};
-        Object[][] data = new Object[courses.size()][headers.length];
+        System.out.println("---------List of courses---------");
+        String[] titles = new String[] {"Course Id", "Course Name", "Credit Number"};
+        Object[][] body = new Object[courses.size()][titles.length];
         for (int i = 0; i < courses.size(); i++) {
             Course course = courses.get(i);
-            data[i][0] = course.getId();
-            data[i][1] = course.getName();
-            data[i][2] = course.getCredits();
+            body[i][0] = course.getId();
+            body[i][1] = course.getName();
+            body[i][2] = course.getCredits();
         }
-        TextTable tt = new TextTable(headers, data);
+        TextTable tt = new TextTable(titles, body);
         tt.printTable();
     }
 }
