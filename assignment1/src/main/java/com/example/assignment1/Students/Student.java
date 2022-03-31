@@ -3,21 +3,21 @@ package com.example.assignment1.Students;
 import java.util.Objects;
 
 public class Student {
-    private int id;
+    private String id;
     private String name;
     private String birthdate;
 
-    public Student(int id, String name, String birthdate) {
+    public Student(String id, String name, String birthdate) {
         this.id = id;
         this.name = name;
         this.birthdate = birthdate;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -50,7 +50,7 @@ public class Student {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Student student = (Student) obj;
-        return id == student.id && Objects.equals(name, student.name) && Objects.equals(birthdate, student.birthdate);
+        return Objects.equals(id, student.id) && Objects.equals(name, student.name) && Objects.equals(birthdate, student.birthdate);
     }
 
     @Override

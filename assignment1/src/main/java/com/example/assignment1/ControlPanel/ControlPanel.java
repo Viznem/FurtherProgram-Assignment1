@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class ControlPanel {
     private final String name; //Menu Name
     private int nOptions; //Number of option in the menu
-    private final Map<Integer, Data> options; //Map with all option. The key is the id (appearance order) of the option
+    private final Map<Integer, Data> options; //Map with all option. The key is the id of the option
 
     public ControlPanel(String newName) {
         this.name = newName;
@@ -61,26 +61,23 @@ public class ControlPanel {
     }
 
     /**
-     * Interface that permits to create a  Callback to each option of the Menu
+     * Create callback function for control panel
      */
     public interface CallBack {
-        /**
-         * Method that will run when an option is chosen
-         */
         void run();
     }
 
     /**
-     * Custom tuple to store an option name, list of settings and callback.
+     * store Name of the option and callback function
      */
     static class Data {
         private final String name; //Option name
         private final CallBack callback; //Option callback
 
         /**
-         * Constructor that create Trio object, representing an option with a name, settings and callback
+         * Constructor that create Data object, representing an option with a name and callback function
          *
-         * @param newName      Option name
+         * @param newName Option name
 
          * @param newCallbacks Option callback
          */
@@ -89,20 +86,10 @@ public class ControlPanel {
             this.callback = newCallbacks;
         }
 
-        /**
-         * Gets the name of the Option
-         *
-         * @return name of the option
-         */
         String getName() {
             return this.name;
         }
 
-        /**
-         * Gets the option callback
-         *
-         * @return A Callback implemented object with the callback
-         */
         CallBack getCallback() {
             return this.callback;
         }

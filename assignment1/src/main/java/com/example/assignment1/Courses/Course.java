@@ -3,22 +3,22 @@ package com.example.assignment1.Courses;
 import java.util.Objects;
 
 public class Course {
-    private int id;
+    private String id;
     private String name;
     private String credits;
 
 
-    public Course(int id, String name, String credits) {
+    public Course(String id, String name, String credits) {
         this.id = id;
         this.name = name;
         this.credits = credits;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -52,7 +52,7 @@ public class Course {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Course course = (Course) obj;
-        return id == course.id && Objects.equals(name, course.name) && Objects.equals(credits, course.credits);
+        return Objects.equals(id, course.id) && Objects.equals(name, course.name) && Objects.equals(credits, course.credits);
     }
 
     @Override

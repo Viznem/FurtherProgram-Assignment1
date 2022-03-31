@@ -2,32 +2,42 @@ package com.example.assignment1;
 
 import com.example.assignment1.ControlPanel.CRUDEnrollment;
 import com.example.assignment1.ControlPanel.ControlPanel;
-import com.example.assignment1.Courses.Course;
 import com.example.assignment1.Courses.ListOfCourse;
 import com.example.assignment1.Students.ListOfStudent;
-import com.example.assignment1.Students.Student;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 @SpringBootApplication
 public class Assignment1Application {
 
 	public static void main(String[] args) {
-		Student StudentA = new Student(5, "Unknown", "10/10/2000");
-		ListOfStudent students = new ListOfStudent();
 
-		Course CourseA = new Course(4, "Further Program", "5");
+		ListOfStudent students = new ListOfStudent();
 		ListOfCourse courses = new ListOfCourse();
 
-		System.out.println(StudentA);
-		students.print(students.getAll());
+		String path = "/assignment1/assignment1/src/main/resources/default.csv";
+		String line = "";
 
-		System.out.println(CourseA);
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(path));
+
+			while((line = br.readLine()) != null){
+				String[] values = line.split(",");
+				students.addData(values[0],values[1],values[2]);
+				courses.addCourse(values[3],values[4],values[5]);
+			}
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+
+		students.print(students.getAll());
 		courses.print(courses.getAll());
 
-		//SpringApplication.run(Assignment1Application.class, args);
 		mainMenu();
 	}
-
 	public static void mainMenu() {
 
 		ControlPanel MainMenu = new ControlPanel("Main Menu");

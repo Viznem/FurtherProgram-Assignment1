@@ -2,24 +2,26 @@ package com.example.assignment1.Students;
 
 import dnl.utils.text.table.TextTable;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ListOfStudent {
 
-    private static final List<Student> StudentList = Arrays.asList(
-            new Student(1, "Thinh Nguyen", "20/1/2000"),
-            new Student(2, "Phat Nguyen", "20/1/2003"),
-            new Student(3, "Hung Nguyen", "10/1/1995")
-    );
+    private static final List<Student> StudentList = new ArrayList<>();
+
 
     public List<Student> getAll() {
         return StudentList;
     }
 
-    public Student getOne(int studentId) {
+    public void addData(String id, String name, String birthdate) {
+        StudentList.add(new Student(id,name,birthdate));
+    }
+
+    public Student getOne(String studentId) {
         return StudentList.stream()
-                .filter(student -> student.getId() == studentId)
+                .filter(student -> Objects.equals(student.getId(), studentId))
                 .parallel()
                 .findAny()
                 .orElse(null);

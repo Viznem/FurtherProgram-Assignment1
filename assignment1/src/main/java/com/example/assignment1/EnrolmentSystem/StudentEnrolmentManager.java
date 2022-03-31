@@ -9,13 +9,13 @@ public interface StudentEnrolmentManager {
 
     void delete(String enrolmentId);
 
-    void deleteByCourseId(int courseId);
+    void deleteByCourseId(String courseId);
 
     StudentEnrolment getOne(String enrolmentId);
 
     List<StudentEnrolment> getAll();
 
-    StudentEnrolment getEnrollmentDataForOneStudent(int studentId, int oldCourseId, String semester);
+    StudentEnrolment getEnrollmentDataForOneStudent(String studentId, String oldCourseId, String semester);
 
-    void getAllEnrolledCoursesForOneStudent(int studentId, String semester);
+    void getAllEnrolledCoursesForOneStudent(String studentId, String semester);
 }

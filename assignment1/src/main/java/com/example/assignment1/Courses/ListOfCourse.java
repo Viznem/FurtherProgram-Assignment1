@@ -2,24 +2,24 @@ package com.example.assignment1.Courses;
 
 import dnl.utils.text.table.TextTable;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ListOfCourse {
-    private static final List<Course> CourseList = Arrays.asList(
-            new Course(1, "AI", "3"),
-            new Course(2, "Data", "4"),
-            new Course(3, "Web", "5")
-
-    );
+    private static final List<Course> CourseList = new ArrayList<>();
 
     public List<Course> getAll() {
         return CourseList;
     }
 
-    public Course getOne(int courseId) {
+    public void addCourse(String id, String name, String credits) {
+        CourseList.add(new Course(id,name,credits));
+    }
+
+    public Course getOne(String courseId) {
         return CourseList.stream()
-                .filter(course -> course.getId() == courseId)
+                .filter(course -> Objects.equals(course.getId(), courseId))
                 .parallel()
                 .findAny()
                 .orElse(null);

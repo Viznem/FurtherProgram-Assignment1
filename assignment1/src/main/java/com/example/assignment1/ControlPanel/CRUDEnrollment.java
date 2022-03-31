@@ -23,8 +23,8 @@ public class CRUDEnrollment implements StudentEnrolmentManager {
     private static List<StudentEnrolment> studentEnrolments = new ArrayList<>();
     private static final StudentEnrolmentManager ENROLMENT_MANAGER = new CRUDEnrollment();
 
-    static int studentId;
-    static int courseId;
+    static String studentId;
+    static String courseId;
     static String semester;
 
     public static void EnrollMenu() {
@@ -39,9 +39,11 @@ public class CRUDEnrollment implements StudentEnrolmentManager {
 
     private static void CreateEnroll() {
         System.out.print("\tEnter student id: ");
-        studentId = Integer.parseInt(SCANNER.nextLine());
+        studentId = SCANNER.nextLine();
+
         System.out.print("\tEnter course id: ");
-        courseId = Integer.parseInt(SCANNER.nextLine());
+        courseId = SCANNER.nextLine();
+
         System.out.print("\tEnter semester: ");
         semester = SCANNER.nextLine();
 
@@ -61,7 +63,7 @@ public class CRUDEnrollment implements StudentEnrolmentManager {
 
     private static void UpdateEnroll() {
         System.out.print("\tEnter student id: ");
-        studentId = Integer.parseInt(SCANNER.nextLine());
+        studentId = SCANNER.nextLine();
         System.out.print("\tEnter semester: ");
         semester = SCANNER.nextLine();
 
@@ -73,7 +75,7 @@ public class CRUDEnrollment implements StudentEnrolmentManager {
         }
 
         System.out.print("\tEnter old course ID you want to change: ");
-        int oldCourseId = Integer.parseInt(SCANNER.nextLine());
+        String oldCourseId = SCANNER.nextLine();
 
         if(COURSE_LIST.getOne(oldCourseId) != null){
             StudentEnrolment studentEnrolment = ENROLMENT_MANAGER.getEnrollmentDataForOneStudent(studentId, oldCourseId, semester);
@@ -82,7 +84,7 @@ public class CRUDEnrollment implements StudentEnrolmentManager {
             COURSE_LIST.print(COURSE_LIST.getAll());
 
             System.out.print("\tEnter new course id: ");
-            int newCourseId = Integer.parseInt(SCANNER.nextLine());
+            String newCourseId = SCANNER.nextLine();
 
             if(COURSE_LIST.getOne(newCourseId) != null){
                 String enrolmentId = studentEnrolment.getId();
@@ -106,7 +108,7 @@ public class CRUDEnrollment implements StudentEnrolmentManager {
 
     private static void DeleteEnroll() {
         System.out.print("\tEnter student id: ");
-        studentId = Integer.parseInt(SCANNER.nextLine());
+        studentId = SCANNER.nextLine();
         System.out.print("\tEnter semester: ");
         semester = SCANNER.nextLine();
 
@@ -114,7 +116,7 @@ public class CRUDEnrollment implements StudentEnrolmentManager {
             ENROLMENT_MANAGER.getAllEnrolledCoursesForOneStudent(studentId, semester);
 
             System.out.print("\tEnter course id you want to drop: ");
-            courseId = Integer.parseInt(SCANNER.nextLine());
+            courseId = SCANNER.nextLine();
 
             if(COURSE_LIST.getOne(courseId) != null){
                 ENROLMENT_MANAGER.deleteByCourseId(courseId);
@@ -175,8 +177,8 @@ public class CRUDEnrollment implements StudentEnrolmentManager {
     }
 
     @Override
-    public void deleteByCourseId(int courseId) {
-        studentEnrolments = studentEnrolments.stream().filter(studentEnrolment -> studentEnrolment.getCourse().getId() != courseId).collect(Collectors.toList());
+    public void deleteByCourseId(String courseId) {
+        studentEnrolments = studentEnrolments.stream().filter(studentEnrolment -> !studentEnrolment.getCourse().getId().equalsIgnoreCase(courseId)).collect(Collectors.toList());
     }
 
     @Override
@@ -189,12 +191,12 @@ public class CRUDEnrollment implements StudentEnrolmentManager {
     }
 
     @Override
-    public StudentEnrolment getEnrollmentDataForOneStudent(int studentId, int courseId, String semester) {
+    public StudentEnrolment getEnrollmentDataForOneStudent(String studentId, String courseId, String semester) {
         return studentEnrolments.stream()
                 .filter(studentEnrolment ->
-                        studentEnrolment.getStudent().getId() == studentId
-                                && studentEnrolment.getSemester().equalsIgnoreCase(semester)
-                                && studentEnrolment.getCourse().getId() == courseId)
+                        Objects.equals(studentEnrolment.getStudent().getId(), studentId)
+                                && Objects.equals(studentEnrolment.getCourse().getId(), courseId)
+                                && studentEnrolment.getSemester().equalsIgnoreCase(semester))
                 .parallel()
                 .findAny()
                 .orElse(null);
@@ -223,10 +225,10 @@ public class CRUDEnrollment implements StudentEnrolmentManager {
     }
 
     @Override
-    public void getAllEnrolledCoursesForOneStudent(int studentId, String semester) {
+    public void getAllEnrolledCoursesForOneStudent(String studentId, String semester) {
         Student student = STUDENT_LIST.getOne(studentId);
         List<Course> courses = studentEnrolments.stream()
-                .filter(studentEnrolment -> studentEnrolment.getStudent().getId() == studentId && studentEnrolment.getSemester().equalsIgnoreCase(semester))
+                .filter(studentEnrolment -> Objects.equals(studentEnrolment.getStudent().getId(), studentId) && studentEnrolment.getSemester().equalsIgnoreCase(semester))
                 .map(StudentEnrolment::getCourse)
                 .collect(Collectors.toList());
         System.out.println("              ***************           ");
