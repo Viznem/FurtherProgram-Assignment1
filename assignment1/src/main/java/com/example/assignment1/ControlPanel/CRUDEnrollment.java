@@ -20,7 +20,7 @@ public class CRUDEnrollment implements StudentEnrolmentManager {
     private static final Scanner SCANNER = new Scanner(System.in);
     public static final ListOfStudent STUDENT_LIST = new ListOfStudent();
     public static final ListOfCourse COURSE_LIST = new ListOfCourse();
-    private static List<StudentEnrolment> studentEnrolments = new ArrayList<>();
+    public static List<StudentEnrolment> studentEnrolments = new ArrayList<>();
     private static final StudentEnrolmentManager ENROLMENT_MANAGER = new CRUDEnrollment();
 
     static String studentId;
@@ -28,7 +28,7 @@ public class CRUDEnrollment implements StudentEnrolmentManager {
     static String semester;
 
     public static void EnrollMenu() {
-        ControlPanel menu = new ControlPanel("Control for Enrollment");
+        ControlPanel menu = new ControlPanel("Enrollment");
         menu.addOption("Create an Enrollment", CRUDEnrollment::CreateEnroll);
         menu.addOption("Update an Enrollment", CRUDEnrollment::UpdateEnroll);
         menu.addOption("Delete an Enrollment", CRUDEnrollment::DeleteEnroll);

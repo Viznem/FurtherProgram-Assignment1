@@ -21,7 +21,7 @@ public class ListOfStudent {
 
     public Student getOne(String studentId) {
         return StudentList.stream()
-                .filter(student -> Objects.equals(student.getId(), studentId))
+                .filter(student -> Objects.equals(student.getId().toLowerCase(), studentId.toLowerCase()))
                 .parallel()
                 .findAny()
                 .orElse(null);

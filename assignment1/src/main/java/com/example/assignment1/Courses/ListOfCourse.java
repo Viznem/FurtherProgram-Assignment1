@@ -19,7 +19,7 @@ public class ListOfCourse {
 
     public Course getOne(String courseId) {
         return CourseList.stream()
-                .filter(course -> Objects.equals(course.getId(), courseId))
+                .filter(course -> Objects.equals(course.getId().toLowerCase(), courseId.toLowerCase()))
                 .parallel()
                 .findAny()
                 .orElse(null);
