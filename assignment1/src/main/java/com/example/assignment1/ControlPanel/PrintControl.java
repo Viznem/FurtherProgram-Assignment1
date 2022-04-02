@@ -30,6 +30,7 @@ public class PrintControl {
         ControlPanel printMenu = new ControlPanel("Print to CSV files");
         printMenu.addOption("Print All Enrolled Courses of 1 student in 1 semester", PrintControl::printAllEnrolledCoursesForOneStudentInOneSemester);
         printMenu.addOption("Print All Students Of 1 Course in 1 semester", PrintControl::printAllStudentsOfOneCourseInOneSemester);
+        printMenu.addOption("Print All Courses In 1 semester", PrintControl::printAllCoursesInOneSemester);
         printMenu.start();
     }
 
@@ -101,7 +102,40 @@ public class PrintControl {
                             printer.printRecord(student.getId(), student.getName(), student.getBirthdate());
                         }
                     }
-                    System.out.printf("Exported report. File name is %s%n", fileName);
+                    System.out.printf("Data Exported. File name is %s%n", fileName);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static void printAllCoursesInOneSemester() {
+        System.out.print("\tEnter semester: ");
+        semester = SCANNER.nextLine();
+
+        List<Course> courses = Enrollment_List.getAll().stream()
+                .filter(studentEnrolment -> studentEnrolment.getSemester().equalsIgnoreCase(semester))
+                .map(StudentEnrolment::getCourse)
+                .collect(Collectors.toList());
+        System.out.println("============================================================");
+        System.out.printf("Semester: %s%n", semester);
+        COURSE_LIST.print(courses);
+
+        if (!courses.isEmpty()) {
+            System.out.println("Do you want to export to CSV file? Yes(Y) / No(N)");
+            String choose = SCANNER.nextLine();
+            if ("Y".equalsIgnoreCase(choose)) {
+                try {
+                    String fileName = "/assignment1/assignment1/src/main/resources/allCoursesInSemester.csv";
+                    String[] headers = {"Course Id", "Course Name", "Credit Number"};
+                    FileWriter out = new FileWriter(fileName);
+                    try (CSVPrinter printer = new CSVPrinter(out, CSVFormat.DEFAULT.withHeader(headers))) {
+                        for (Course course : courses) {
+                            printer.printRecord(course.getId(), course.getName(), course.getCredits());
+                        }
+                    }
+                    System.out.printf("Data Exported to CSV file. File name is %s%n", fileName);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

@@ -58,7 +58,6 @@ public class CRUDEnrollment implements StudentEnrolmentManager {
             System.out.println("Student Id or Course Id did not exist!!!");
             GoBack();
         }
-
     }
 
     private static void UpdateEnroll() {
@@ -237,5 +236,4 @@ public class CRUDEnrollment implements StudentEnrolmentManager {
         System.out.printf("All Enrolled Courses of this student in Semester %s%n", semester);
         COURSE_LIST.print(courses);
     }
-
 }
