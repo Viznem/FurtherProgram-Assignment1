@@ -51,7 +51,9 @@ public class PrintControl {
         COURSE_LIST.print(courses);
 
         if (!courses.isEmpty()) {
-            System.out.println("Do you want to export to CSV file? Yes(Y) / No(N)");
+            System.out.println("Do you want to export this data to a CSV file? Yes(Y) / No(N)");
+            System.out.println("Please Enter (Y) For Yes and (N) for No");
+
             String choose = SCANNER.nextLine();
             if ("Y".equalsIgnoreCase(choose)) {
                 try {
@@ -84,13 +86,14 @@ public class PrintControl {
                 .filter(studentEnrolment -> Objects.equals(studentEnrolment.getCourse().getId(), courseId) && studentEnrolment.getSemester().equalsIgnoreCase(semester))
                 .map(StudentEnrolment::getStudent)
                 .collect(Collectors.toList());
-        System.out.println("============================================================");
-        System.out.printf("Course Id: %s, Course Name: %s, Credit Number: %s%n", course.getId(), course.getName(), course.getCredits());
+        System.out.println("***************************************************");
+        System.out.printf("Course Id: %s, Course Name: %s, Number of Credit: %s%n", course.getId(), course.getName(), course.getCredits());
         System.out.printf("Semester: %s%n", semester);
         STUDENT_LIST.print(students);
 
         if (!students.isEmpty()) {
-            System.out.println("Do you want to export to CSV file? Yes(Y) / No(N)");
+            System.out.println("Do you want to export this data to a CSV file? Yes(Y) / No(N)");
+            System.out.println("Please Enter (Y) For Yes and (N) for No");
             String choose = SCANNER.nextLine();
             if ("Y".equalsIgnoreCase(choose)) {
                 try {
@@ -123,7 +126,8 @@ public class PrintControl {
         COURSE_LIST.print(courses);
 
         if (!courses.isEmpty()) {
-            System.out.println("Do you want to export to CSV file? Yes(Y) / No(N)");
+            System.out.println("Do you want to export this data to a CSV file? Yes(Y) / No(N)");
+            System.out.println("Please Enter (Y) For Yes and (N) for No");
             String choose = SCANNER.nextLine();
             if ("Y".equalsIgnoreCase(choose)) {
                 try {

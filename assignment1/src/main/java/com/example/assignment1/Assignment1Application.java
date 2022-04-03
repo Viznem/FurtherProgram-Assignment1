@@ -19,6 +19,7 @@ public class Assignment1Application {
 		ListOfStudent students = new ListOfStudent();
 		ListOfCourse courses = new ListOfCourse();
 
+
 		String path = "/assignment1/assignment1/src/main/resources/default.csv";
 		String line = "";
 

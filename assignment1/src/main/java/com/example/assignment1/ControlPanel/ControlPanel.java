@@ -37,8 +37,10 @@ public class ControlPanel {
         Scanner in = new Scanner(System.in);
         int op = -1;
 
+        // user input an index to choose the options, if the options exist it will call and run the function.
         while (op == -1) {
             System.out.print("$ ");
+
             try {
 
                 String value = in.nextLine();
@@ -60,27 +62,16 @@ public class ControlPanel {
         this.nOptions++;
     }
 
-    /**
-     * Create callback function for control panel
-     */
+     //Create callback function for control panel
     public interface CallBack {
         void run();
     }
 
-    /**
-     * store Name of the option and callback function
-     */
+    // Store name of the option, and function to call back when user choose that option
     static class Data {
         private final String name; //Option name
         private final CallBack callback; //Option callback
 
-        /**
-         * Constructor that create Data object, representing an option with a name and callback function
-         *
-         * @param newName Option name
-
-         * @param newCallbacks Option callback
-         */
         Data(String newName, CallBack newCallbacks) {
             this.name = newName;
             this.callback = newCallbacks;
