@@ -4,6 +4,8 @@ import com.example.assignment1.ControlPanel.CRUDEnrollment;
 import com.example.assignment1.ControlPanel.ControlPanel;
 import com.example.assignment1.ControlPanel.PrintControl;
 import com.example.assignment1.Courses.ListOfCourse;
+import com.example.assignment1.EnrolmentSystem.StudentEnrolment;
+import com.example.assignment1.EnrolmentSystem.StudentEnrolmentManager;
 import com.example.assignment1.Students.ListOfStudent;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -17,8 +19,9 @@ public class Assignment1Application {
 	static Scanner scanner = new Scanner(System.in);
 	static ListOfStudent students = new ListOfStudent();
 	static ListOfCourse courses = new ListOfCourse();
-	static String path = "";
-	static String line = "";
+	static StudentEnrolmentManager ENROLMENT_MANAGER = new CRUDEnrollment();
+	private static String path = "";
+	private static String line = "";
 
 	public static void main(String[] args) {
 		importCSVFile();
@@ -33,6 +36,9 @@ public class Assignment1Application {
 				String[] values = line.split(",");
 				students.addData(values[0].replace(" ",""),values[1].replace(" ",""),values[2].replace(" ",""));
 				courses.addCourse(values[3].replace(" ",""),values[4].replace(" ",""),values[5].replace(" ",""));
+				ENROLMENT_MANAGER.add(new StudentEnrolment(students.getOne(values[0]),
+															courses.getOne(values[3]),
+															values[6]));
 			}
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -55,6 +61,9 @@ public class Assignment1Application {
 				String[] values = line.split(",");
 				students.addData(values[0].replace(" ",""),values[1].replace(" ",""),values[2].replace(" ",""));
 				courses.addCourse(values[3].replace(" ",""),values[4].replace(" ",""),values[5].replace(" ",""));
+				ENROLMENT_MANAGER.add(new StudentEnrolment(students.getOne(values[0]),
+						courses.getOne(values[3]),
+						values[6]));
 			}
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -73,7 +82,6 @@ public class Assignment1Application {
 		ChooseFile.addOption("Import your own CSV file",Assignment1Application::readUserCSVFile);
 		ChooseFile.start();
 	}
-
 
 	public static void mainMenu() {
 

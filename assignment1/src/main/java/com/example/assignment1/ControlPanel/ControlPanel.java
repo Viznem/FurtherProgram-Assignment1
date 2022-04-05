@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class ControlPanel {
     private final String name; //Menu Name
     private int nOptions; //Number of option in the menu
-    private final Map<Integer, Data> options; //Map with all option. The key is the id of the option
+    private final Map<Integer, FunctionToCallBack> options; //Map with all option. The key is the id of the option
 
     public ControlPanel(String newName) {
         this.name = newName;
@@ -25,7 +25,7 @@ public class ControlPanel {
         //Options
         for (int j = 1; j <= this.options.size(); j++) {
             if (this.options.containsKey(j)) {
-                Data data = this.options.get(j);
+                FunctionToCallBack data = this.options.get(j);
                 body.append("  ");
                 body.append(j).append(")  ").append(data.getName()).append("\u001B[0m\n");
             }
@@ -57,7 +57,7 @@ public class ControlPanel {
     }
 
     public void addOption(String name, CallBack callBack) {
-        Data data = new Data(name, callBack);
+        FunctionToCallBack data = new FunctionToCallBack(name, callBack);
         this.options.put(this.nOptions, data);
         this.nOptions++;
     }
@@ -68,11 +68,11 @@ public class ControlPanel {
     }
 
     // Store name of the option, and function to call back when user choose that option
-    static class Data {
+    static class FunctionToCallBack {
         private final String name; //Option name
         private final CallBack callback; //Option callback
 
-        Data(String newName, CallBack newCallbacks) {
+        FunctionToCallBack(String newName, CallBack newCallbacks) {
             this.name = newName;
             this.callback = newCallbacks;
         }

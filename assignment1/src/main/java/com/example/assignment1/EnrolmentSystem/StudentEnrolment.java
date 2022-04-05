@@ -18,14 +18,14 @@ public class StudentEnrolment {
         this.id = id;
         this.student = student;
         this.course = course;
-        this.semester = semester;
+        this.semester = semester.replace(" ","");
     }
 
     public StudentEnrolment(Student student, Course course, String semester) {
         this.id = UUID.randomUUID().toString();
         this.student = student;
         this.course = course;
-        this.semester = semester;
+        this.semester = semester.replace(" ","");
     }
 
     public StudentEnrolment(StudentEnrolment studentEnrolment) {
