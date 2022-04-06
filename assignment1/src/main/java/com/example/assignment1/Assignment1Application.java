@@ -12,6 +12,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 @SpringBootApplication
@@ -28,53 +31,75 @@ public class Assignment1Application {
 	}
 
 	public static void readDefaultCSV(){
-		path = "/assignment1/assignment1/src/main/resources/default.csv";
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(path));
+		path = "/NguyenTruongThinh_S3777196/assignment1/src/main/resources/default.csv";
 
-			while((line = br.readLine()) != null){
-				String[] values = line.split(",");
-				students.addData(values[0].replace(" ",""),values[1].replace(" ",""),values[2].replace(" ",""));
-				courses.addCourse(values[3].replace(" ",""),values[4].replace(" ",""),values[5].replace(" ",""));
-				ENROLMENT_MANAGER.add(new StudentEnrolment(students.getOne(values[0]),
-															courses.getOne(values[3]),
-															values[6]));
+		if(isValidPath(path)){
+			try {
+				BufferedReader br = new BufferedReader(new FileReader(path));
+
+				while((line = br.readLine()) != null){
+					String[] values = line.split(",");
+					students.addData(values[0].replace(" ",""),values[1].replace(" ",""),values[2].replace(" ",""));
+					courses.addCourse(values[3].replace(" ",""),values[4].replace(" ",""),values[5].replace(" ",""));
+					ENROLMENT_MANAGER.add(new StudentEnrolment(students.getOne(values[0]),
+							courses.getOne(values[3]),
+							values[6]));
+				}
+			} catch(IOException e) {
+				e.printStackTrace();
 			}
-		} catch(IOException e) {
-			e.printStackTrace();
+
+			students.print(students.getAll());
+			courses.print(courses.getAll());
+
+			mainMenu();
+		}else{
+			System.out.println("Something went wrong with the default file!!! Please try again");
+			importCSVFile();
 		}
 
-		students.print(students.getAll());
-		courses.print(courses.getAll());
-
-		mainMenu();
 	}
 
 	public static void readUserCSVFile(){
 		//the file must be in the same directory.
-		System.out.print("\tEnter PATH to your CSV file (ex: /assignment1/assignment1/src/main/resources/YourFile.csv): ");
+		System.out.print("\tEnter PATH to your CSV file (ex: \\NguyenTruongThinh_S3777196\\assignment1\\src\\main\\resources\\userCSV.csv): ");
 		path = scanner.nextLine();
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(path));
 
-			while((line = br.readLine()) != null){
-				String[] values = line.split(",");
-				students.addData(values[0].replace(" ",""),values[1].replace(" ",""),values[2].replace(" ",""));
-				courses.addCourse(values[3].replace(" ",""),values[4].replace(" ",""),values[5].replace(" ",""));
-				ENROLMENT_MANAGER.add(new StudentEnrolment(students.getOne(values[0]),
-						courses.getOne(values[3]),
-						values[6]));
+		if(isValidPath(path)){
+			try {
+				BufferedReader br = new BufferedReader(new FileReader(path));
+
+				while((line = br.readLine()) != null){
+					String[] values = line.split(",");
+					students.addData(values[0].replace(" ",""),values[1].replace(" ",""),values[2].replace(" ",""));
+					courses.addCourse(values[3].replace(" ",""),values[4].replace(" ",""),values[5].replace(" ",""));
+					ENROLMENT_MANAGER.add(new StudentEnrolment(students.getOne(values[0]),
+							courses.getOne(values[3]),
+							values[6]));
+				}
+			} catch(IOException e) {
+				e.printStackTrace();
 			}
-		} catch(IOException e) {
-			e.printStackTrace();
+
+			students.print(students.getAll());
+			courses.print(courses.getAll());
+
+			mainMenu();
+		}else{
+			System.out.println("Path not exist! Please try again");
+			readUserCSVFile();
 		}
-
-		students.print(students.getAll());
-		courses.print(courses.getAll());
-
-		mainMenu();
 	}
 
+	public static boolean isValidPath(String path){
+		try {
+			Files.newBufferedReader(Paths.get(path), StandardCharsets.US_ASCII);
+		} catch (IOException e) {
+			//e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 
 	public static void  importCSVFile(){
 		ControlPanel ChooseFile = new ControlPanel("Choose csv file to import");
