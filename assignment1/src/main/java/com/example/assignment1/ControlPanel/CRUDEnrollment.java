@@ -177,7 +177,7 @@ public class CRUDEnrollment implements StudentEnrolmentManager {
 
     @Override
     public void deleteByCourseId(String courseId) {
-        studentEnrolments = studentEnrolments.stream().filter(studentEnrolment -> !studentEnrolment.getCourse().getId().equalsIgnoreCase(courseId)).collect(Collectors.toList());
+        studentEnrolments = studentEnrolments.stream().filter(studentEnrolment -> !(studentEnrolment.getCourse().getId().equalsIgnoreCase(courseId))).collect(Collectors.toList());
     }
 
     @Override

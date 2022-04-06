@@ -1,5 +1,6 @@
 package com.example.assignment1.ControlPanel;
 
+import com.example.assignment1.Assignment1Application;
 import com.example.assignment1.Courses.Course;
 import com.example.assignment1.Courses.ListOfCourse;
 import com.example.assignment1.EnrolmentSystem.StudentEnrolment;
@@ -32,6 +33,12 @@ public class PrintControl {
         printMenu.addOption("Print All Students Of 1 Course in 1 semester", PrintControl::printAllStudentsOfOneCourseInOneSemester);
         printMenu.addOption("Print All Courses In 1 semester", PrintControl::printAllCoursesInOneSemester);
         printMenu.start();
+    }
+
+    private static void GoBack() {
+        ControlPanel menu = new ControlPanel("");
+        menu.addOption("Back", Assignment1Application::mainMenu);
+        menu.start();
     }
 
     public static void printAllEnrolledCoursesForOneStudentInOneSemester() {
@@ -70,6 +77,9 @@ public class PrintControl {
                     e.printStackTrace();
                 }
             }
+        }else{
+            System.out.println("This student did not enrolled any courses this semester! Export data fail");
+            GoBack();
         }
     }
 
@@ -110,6 +120,9 @@ public class PrintControl {
                     e.printStackTrace();
                 }
             }
+        }else{
+            System.out.println("There is no students enrolled this course! Export data fail");
+            GoBack();
         }
     }
 
@@ -144,6 +157,9 @@ public class PrintControl {
                     e.printStackTrace();
                 }
             }
+        }else{
+            System.out.println("There is no courses for this semester! Export data fail");
+            GoBack();
         }
     }
 
